@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const mysql = require('mysql');
 const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -58,7 +59,7 @@ app.get("/register", (req, res)=>{
 app.post("/register", (req, res)=>{
     let data = {
         username: req.body.username,
-        password: bcrypt.hashSync(req.body.password, 10)
+        password: bcrypt.hashSync(req.body.password, saltRounds)
     }
     let queryNya="INSERT INTO users SET ?";
 
